@@ -1,21 +1,31 @@
 import json
+import urllib.parse
 
 def lambda_handler(event, context):
     # TODO implement
     input = event["input"]
+    input = urllib.parse.unquote(input)
     try:
         result = kanji2number(input)
-        output = result.encode('utf-8')
-        object ={
+        output = result
+        object ={   
+                    "isBase64Encoded": True,
                     'statusCode': 200,
+                    'headers': {
+                        'Content-type': 'application/json;charset=UTF-8'
+                    },
                     'body': output
                 }
         return object#json.dumps(object,ensure_ascii=False)
     except Exception as e:
         result = str(e)
-        output = result.encode('utf-8')
+        output = result
         object ={
+                    "isBase64Encoded": True,
                     'statusCode': 204,
+                    'headers': {
+                        'Content-type': 'application/json;charset=UTF-8'
+                    },
                     'body': output
                 }
         return object#json.dumps(object,ensure_ascii=False)
@@ -61,44 +71,45 @@ lowerNum = {
 }
 
 #下数がない場合に使用する変数
-allZero = "0000" 
+ALLZERO = "0000" 
 
 #大数表記の漢数字からアラビア数字に変換する関数
 #入力：文字列
 #出力：数値
-def kanji2number(str):
-    n = len(str)        #入力文字列の長さ
+def kanji2number(base):
+    n = len(base)        #入力文字列の長さ
     isFirst = True      #先頭の"0"を消すためのフラグ
     result = ""         #出力用の変数
     cut = 0             #切り分け用の変数
 
-    if not checkNum(str):
-        error( str + " is not support!")
+    if not checkNumber(base):
+        error("\""+ base + "\" is not support!")
 
     #零のときの処理
-    if str == "零" and n == 1:
+    if base == "零" and n == 1:
         return "0" 
 
     #兆，億，万の位の処理
     for i in range(0,3):
-        if lowerNum[i] in str:
-            s = str[cut : str.find(lowerNum[i])]        #先頭から文字（lowerNum[i]）の手前までの文字列を取得（7文字以下になる）
+        if lowerNum[i] in base:
+            s = base[cut : base.find(lowerNum[i])]      #先頭から文字（lowerNum[i]）の手前までの文字列を取得（7文字以下になる）
             if len(s) <= 7:                             #文字数チェック
                 result = result + convert(s, isFirst)   #漢数字からアラビア数字へ変換
-                cut = str.find(lowerNum[i]) + 1         #切り分け用の変数を更新
+                cut = base.find(lowerNum[i]) + 1        #切り分け用の変数を更新
                 isFirst = False                         #フラグの変更
             else:
                 error("syntax error")                   #エラー処理
         elif (not isFirst):                             #先頭に数値がある場合は"0000"で埋める
-            result = result + allZero
+            result = result + ALLZERO
     
     #千の位以下の処理
     if cut < n:                                     #千の位以下があるとき
-        s = str[cut :]                              #切り分けから文字列の最後までを取得(7文字以下)
+        s = base[cut :]                              #切り分けから文字列の最後までを取得(7文字以下)
         if len(s) <= 7:                             #文字数チェック
             result = result + convert(s, isFirst)   #漢数字からアラビア数字へ変換
         else:
             error("syntax error")                   #エラー処理
+            
     elif (not isFirst):                             #先頭に数値がある場合は"0000"で埋める
         result = result + allZero                   
 
@@ -158,7 +169,7 @@ def removeZero(str):
 #指定文字列以外が含まれるか判別する関数
 #入力：文字列
 #出力：指定文字列以外が含まれるかを示すBool値
-def checkNum(str):
+def checkNumber(str):
     uniqeNum = set(str)                             #重複要素を削除
     uniqeStr = list(uniqeNum)                       #set型のオブジェクトを配列に変換
 
