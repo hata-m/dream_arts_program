@@ -13,10 +13,13 @@ $ python3 test.py
 There is no arguments.
 
 ## kanji2number.py
+
+### AWS Lambda + AWS API Gateway
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱>
 
 
 ## number2kanji.py
+### AWS Lambda + AWS API Gateway
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/123>
 # 環境
 - macOS Catalina var. 10.15.7
