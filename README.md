@@ -16,12 +16,14 @@ There is no arguments.
 
 ### AWS Lambda + AWS API Gateway
 - 例（壱 → 1）
+
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱>
 
 
 ## number2kanji.py
 ### AWS Lambda + AWS API Gateway
 - 例（123 → 壱百弐拾参）
+
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/123>
 
 # 環境
