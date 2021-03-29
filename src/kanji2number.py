@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 
+
 def lambda_handler(event, context):
     # TODO implement
     input = event["input"]
@@ -8,25 +9,27 @@ def lambda_handler(event, context):
     try:
         result = kanji2number(input)
         output = result
-        object = {   
-                'statusCode': 200,
-                'headers': {
-                    'Content-type': 'application/json;charset=UTF-8'
-                },
-                'body': output
-            }
+        object ={   
+                    'statusCode': 200,
+                    'headers': {
+                        'Content-type': 'application/json;charset=UTF-8'
+                    },
+                    'body': output
+                }
         return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
     except Exception as e:
-        result = str(e)
-        output = result
-        object = {
-                'statusCode': 204,
-                'headers': {
-                    'Content-type': 'application/json;charset=UTF-8'
-                },
-                'body': output
-            }
-        return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
+        #raise Exception('Malformed input ...')
+        # result = str(e)
+        # output = result
+        # object ={
+        #             'statusCode': 204,
+        #             'headers': {
+        #                 'Content-type': ' text/plain;charset=UTF-8'
+        #             },
+        #             'body': output
+        #         }
+        # return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
+        raise ExtendException(204, "Bad Request")
         
 #関数で使用する辞書型の定義
 kanji = {
@@ -69,45 +72,44 @@ lowerNum = {
 }
 
 #下数がない場合に使用する変数
-ALLZERO = "0000" 
+allZero = "0000" 
 
 #大数表記の漢数字からアラビア数字に変換する関数
 #入力：文字列
 #出力：数値
-def kanji2number(base):
-    n = len(base)        #入力文字列の長さ
+def kanji2number(str):
+    n = len(str)        #入力文字列の長さ
     isFirst = True      #先頭の"0"を消すためのフラグ
     result = ""         #出力用の変数
     cut = 0             #切り分け用の変数
 
-    if not checkNumber(base):
-        error("\""+ base + "\" is not support!")
+    if not checkNum(str):
+        error( str + " is not support!")
 
     #零のときの処理
-    if base == "零" and n == 1:
+    if str == "零" and n == 1:
         return "0" 
 
     #兆，億，万の位の処理
     for i in range(0,3):
-        if lowerNum[i] in base:
-            s = base[cut : base.find(lowerNum[i])]      #先頭から文字（lowerNum[i]）の手前までの文字列を取得（7文字以下になる）
+        if lowerNum[i] in str:
+            s = str[cut : str.find(lowerNum[i])]        #先頭から文字（lowerNum[i]）の手前までの文字列を取得（7文字以下になる）
             if len(s) <= 7:                             #文字数チェック
                 result = result + convert(s, isFirst)   #漢数字からアラビア数字へ変換
-                cut = base.find(lowerNum[i]) + 1        #切り分け用の変数を更新
+                cut = str.find(lowerNum[i]) + 1         #切り分け用の変数を更新
                 isFirst = False                         #フラグの変更
             else:
                 error("syntax error")                   #エラー処理
         elif (not isFirst):                             #先頭に数値がある場合は"0000"で埋める
-            result = result + ALLZERO
+            result = result + allZero
     
     #千の位以下の処理
     if cut < n:                                     #千の位以下があるとき
-        s = base[cut :]                              #切り分けから文字列の最後までを取得(7文字以下)
+        s = str[cut :]                              #切り分けから文字列の最後までを取得(7文字以下)
         if len(s) <= 7:                             #文字数チェック
             result = result + convert(s, isFirst)   #漢数字からアラビア数字へ変換
         else:
             error("syntax error")                   #エラー処理
-
     elif (not isFirst):                             #先頭に数値がある場合は"0000"で埋める
         result = result + allZero                   
 
@@ -167,7 +169,7 @@ def removeZero(str):
 #指定文字列以外が含まれるか判別する関数
 #入力：文字列
 #出力：指定文字列以外が含まれるかを示すBool値
-def checkNumber(str):
+def checkNum(str):
     uniqeNum = set(str)                             #重複要素を削除
     uniqeStr = list(uniqeNum)                       #set型のオブジェクトを配列に変換
 
@@ -193,3 +195,15 @@ def error(str):
     
 class TestException(Exception):
     pass
+
+class ExtendException(Exception):
+    def __init__(self, statusCode, description):
+        self.statusCode = statusCode
+        self.description = description
+
+    def __str__(self):
+        obj = {
+            "statusCode": self.statusCode,
+            "description": self.description
+        }
+        return json.dumps(obj)
