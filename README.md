@@ -19,22 +19,22 @@ There is no arguments.
  例（壱拾弐万参千壱百四拾弐 → 123142）
 
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱拾弐万参千壱百四拾弐>
-
+<!-- 
 例 (壱京 → statusCode 204)
 
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱京>
-
+-->
 ## number2kanji.py
 
 - AWS Lambda + AWS API Gateway
  例（1071960 → 壱百七万壱千九百六拾）
 
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/1071960>
-
+<!--
 例 (-1 → statusCode 204)
 
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/-1>
-
+-->
 # 環境
 - macOS Catalina var. 10.15.7
 - Python 3.8.2
