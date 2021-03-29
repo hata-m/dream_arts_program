@@ -13,6 +13,9 @@ STEP = 10000000000                    #ステップ数
 CHECK_FLAG = False
 
 def main():
+    print("START:"+str(START))
+    print("END  :"+str(END))
+    print("STEP :"+str(STEP))
     print("start")
     try:
         for i in range(START,END,STEP):

@@ -15,7 +15,7 @@ def lambda_handler(event, context):
             },
             'body': output
         }
-        return object#json.dumps(object,ensure_ascii=False)
+        return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
         
     except Exception as e:
         result = str(e)
@@ -27,7 +27,7 @@ def lambda_handler(event, context):
             },
             'body': output
         }
-        return object#json.dumps(object,ensure_ascii=False)
+        return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
     
 
 #関数で使用する辞書型の定義

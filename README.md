@@ -14,26 +14,26 @@ There is no arguments.
 
 ## kanji2number.py
 
-### AWS Lambda + AWS API Gateway
-- 例（壱 → 1）
+#### AWS Lambda + AWS API Gateway
+- 例（壱拾弐万参千壱百四拾弐 → 123142）
 
-<https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱>
+<https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱拾弐万参千壱百四拾弐>
 
 
 ## number2kanji.py
-### AWS Lambda + AWS API Gateway
-- 例（123 → 壱百弐拾参）
+#### AWS Lambda + AWS API Gateway
+- 例（1071960 → 壱百七万壱千九百六拾）
 
-<https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/123>
+<https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/1071960>
 
 # 環境
 - macOS Catalina var. 10.15.7
 - Python 3.8.2
 - safari 14.0.2
-- curl 7.71.1
+- Google Chrome 89.0.4389.90 ※UTF-8のみに対応（拡張機能必須）
 
 # Note
-
+文字化けが発生する場合は，文字コードをUTF-8に変更して実行してください．
 # Author
 
 # License

@@ -16,7 +16,7 @@ def lambda_handler(event, context):
                     },
                     'body': output
                 }
-        return object#json.dumps(object,ensure_ascii=False)
+        return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
     except Exception as e:
         result = str(e)
         output = result
@@ -28,7 +28,7 @@ def lambda_handler(event, context):
                     },
                     'body': output
                 }
-        return object#json.dumps(object,ensure_ascii=False)
+        return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
         
 #関数で使用する辞書型の定義
 kanji = {
@@ -109,7 +109,7 @@ def kanji2number(base):
             result = result + convert(s, isFirst)   #漢数字からアラビア数字へ変換
         else:
             error("syntax error")                   #エラー処理
-            
+
     elif (not isFirst):                             #先頭に数値がある場合は"0000"で埋める
         result = result + allZero                   
 
