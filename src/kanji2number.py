@@ -8,26 +8,24 @@ def lambda_handler(event, context):
     try:
         result = kanji2number(input)
         output = result
-        object ={   
-                    "isBase64Encoded": True,
-                    'statusCode': 200,
-                    'headers': {
-                        'Content-type': 'application/json;charset=UTF-8'
-                    },
-                    'body': output
-                }
+        object = {   
+                'statusCode': 200,
+                'headers': {
+                    'Content-type': 'application/json;charset=UTF-8'
+                },
+                'body': output
+            }
         return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
     except Exception as e:
         result = str(e)
         output = result
-        object ={
-                    "isBase64Encoded": True,
-                    'statusCode': 204,
-                    'headers': {
-                        'Content-type': 'application/json;charset=UTF-8'
-                    },
-                    'body': output
-                }
+        object = {
+                'statusCode': 204,
+                'headers': {
+                    'Content-type': 'application/json;charset=UTF-8'
+                },
+                'body': output
+            }
         return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
         
 #関数で使用する辞書型の定義
