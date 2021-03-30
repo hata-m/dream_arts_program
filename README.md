@@ -27,6 +27,7 @@ There is no arguments.
 ## number2kanji.py
 
 - AWS Lambda + AWS API Gateway
+
  例（1071960 → 壱百七万壱千九百六拾）
 
 <https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/1071960>
