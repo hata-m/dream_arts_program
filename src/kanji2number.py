@@ -18,18 +18,7 @@ def lambda_handler(event, context):
                 }
         return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
     except Exception as e:
-        #raise Exception('Malformed input ...')
-        # result = str(e)
-        # output = result
-        # object ={
-        #             'statusCode': 204,
-        #             'headers': {
-        #                 'Content-type': ' text/plain;charset=UTF-8'
-        #             },
-        #             'body': output
-        #         }
-        # return json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
-        raise ExtendException(204, "Bad Request")
+        raise ExtendException(204, str(e))
         
 #関数で使用する辞書型の定義
 kanji = {

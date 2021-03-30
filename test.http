@@ -1,0 +1,12 @@
+### kanji2number (statusCode 200)
+https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱拾弐万参千壱百四拾弐
+
+### kanji2number (statusCode 200)
+https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/kanji2number/壱京
+
+### number2kanji (statusCode 200)
+https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/1071960
+
+### number2kanji (statusCode 204)
+https://4vx92pyk25.execute-api.ap-northeast-1.amazonaws.com/v1/number2kanji/-1
+

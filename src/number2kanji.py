@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     input = urllib.parse.unquote(input)
     try:
         result = number2kanji(input)
-        output = result#urllib.parse.quote(result)
+        output = result
         object = {
             'statusCode': 200,
             'headers': {
@@ -15,22 +15,10 @@ def lambda_handler(event, context):
             },
             'body': output
         }
-        return object#json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
+        return object
         
     except Exception as e:
-        # result = str(e)
-        # output = result
-        # object = {
-        #     "errorMessage":  "<replaceable>Internal error.  " + str(e) + "</replaceable>",
-        #     "errorType": "<replaceable>Exception</replaceable>",
-        #     'statusCode': 204,
-        #     'headers': {
-        #         'Content-type': 'application/json;charset=UTF-8'
-        #     },
-        #     'body': output
-        # }
-        # return object #json.dumps(object,indent=4,ensure_ascii=False).encode('utf8')
-        raise ExtendException(204, "Bad Request")
+        raise ExtendException(204, str(e))
     
 
 #関数で使用する辞書型の定義
@@ -115,9 +103,6 @@ def convert(str):
 def error(str):
     raise TestException(str)
     
-class TestException(Exception):
-    pass
-
 class ExtendException(Exception):
     def __init__(self, statusCode, description):
         self.statusCode = statusCode
