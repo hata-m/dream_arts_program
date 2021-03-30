@@ -13,6 +13,7 @@
 $ python3 test.py
 
 There is no arguments.
+
 ※実行時間が長い為，ソースコードのSTART，END，STEPの値を調整してください
 
 ## kanji2number.py
